@@ -11,20 +11,23 @@
 	$(function() {
 		
 		var count=0;
+		var name=0;
 		
 		$("#add").click(function() {
 	
-			count++;
-			if(count<6){
-				$("#file").append('<p id="p1"><input type="file" name="f1"><span class="del">X</span></p>');
+			if(count<5){
+				count++;
+				name++;
+				$("#file").append('<p class="test"><input type="file" name="f'+name+'"><span class="del">X</span></p>');
 			}else{
 				alert("최대 5개만 가능");
 			}
 		});
 		
-		$(".del").click(function() {
+		$("#file").on("click",".del",function(){
 			count--;
-			$("#p1").remove();
+			$(this).parent().remove();
+			
 		});
 		
 	});
@@ -68,7 +71,7 @@
 	<hr>
 	<h2>이름이 같고 갯수를 모를 때</h2>
 	
-	<form action="Upload" method="post" enctype="multipart/form-data">
+	<form action="upload" method="post" enctype="multipart/form-data">
 		<input type="text" name="name">
 		<div id="file">
 		
