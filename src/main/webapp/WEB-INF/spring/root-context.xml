@@ -5,12 +5,19 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- property파일을 읽어오는 객체 /연결하는 작업-->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:mybatis/myBatis.properties</value>
+		</property>
+	</bean>
+	
 	<!-- datasource -->
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
-		<property name="username" value="user03" />
-		<property name="password" value="user03" />
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="username" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.pw}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="driverClassName" value="${jdbc.driver}" />
 	</bean>
 	
 	<!--파일 합쳐주는 -->
@@ -23,6 +30,8 @@
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml" /> <!-- class를 저장하는 기본 경로 = classpath -->
+		<!-- 주소를 저장해 놓은 property파일과 연결하는 작업 -->
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
 	</bean>
 	
 	<!-- dao에서 사용할 거 -->
