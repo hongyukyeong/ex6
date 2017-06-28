@@ -7,7 +7,7 @@
   <mapper namespace="TableMapper">
   	
   	<insert id="insertTableA" parameterType="com.choa.table.TableADTO">
-  		insert into tablea values(#{num}, #{title}, #{writer})
+  		insert into tablea values(#{num}, #{writer}, #{title})
   	</insert>
   	
   	<insert id="insertTableD" parameterType="com.choa.table.TableBDTO">
